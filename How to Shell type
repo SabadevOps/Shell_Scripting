@@ -1,0 +1,72 @@
+To check which shell you are currently using in a Unix-like operating system, you can use several methods. Here are some common ways to determine your current shell:
+
+### 1. Using the `$SHELL` Environment Variable
+The `$SHELL` environment variable typically holds the path to your default shell. However, note that this shows your default login shell, which may not necessarily be the shell currently in use if you've switched shells during the session.
+
+```sh
+echo $SHELL
+```
+
+### 2. Using the `ps` Command
+The `ps` command can show information about the current processes, including the shell process:
+
+```sh
+ps -p $$ -o comm=
+```
+
+Here, `$$` is a special variable that represents the process ID of the current shell, and `-o comm=` outputs just the command name.
+
+### 3. Using the `echo` Command with `$0`
+The `$0` variable usually contains the name of the current shell or the shell script being executed.
+
+```sh
+echo $0
+```
+
+### 4. Checking the Process Tree with `pstree`
+The `pstree` command displays the process tree of the current shell session. This can help you visualize which shell you are using:
+
+```sh
+pstree -p $$
+```
+
+### 5. Using the `getent` Command (for Default Login Shell)
+If you want to check the default login shell for your user account, you can use the `getent` command to query the passwd database:
+
+```sh
+getent passwd $USER | cut -d: -f7
+```
+
+### 6. Using `echo $0` in a Script
+If you want to determine the shell within a script, you can use `echo $0`. This is particularly useful when you need to know the interpreter running a script:
+
+```sh
+#!/bin/sh
+echo "Running script with shell: $0"
+```
+
+### Example Commands and Their Output
+
+```sh
+# Method 1: Using $SHELL
+echo $SHELL
+# Output: /bin/bash or /bin/zsh, etc.
+
+# Method 2: Using ps
+ps -p $$ -o comm=
+# Output: bash or zsh, etc.
+
+# Method 3: Using $0
+echo $0
+# Output: -bash or bash, or -zsh or zsh, etc.
+
+# Method 4: Using pstree
+pstree -p $$
+# Output will show a tree structure with your current shell highlighted.
+
+# Method 5: Using getent for default login shell
+getent passwd $USER | cut -d: -f7
+# Output: /bin/bash or /bin/zsh, etc.
+```
+
+Each method provides slightly different information. Using `ps -p $$ -o comm=` is often the most direct way to find the currently running shell, while `echo $SHELL` gives you the default shell set for the user, which might be different if the shell has been changed during the session.
