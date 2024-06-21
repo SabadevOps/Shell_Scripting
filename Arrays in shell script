@@ -1,0 +1,94 @@
+Arrays in shell scripting provide a way to store multiple values in a single variable. Unlike some other programming languages, shell scripting arrays are sparse arrays, meaning they are indexed but not necessarily continuous. Here's how you can work with arrays in shell scripts:
+
+### 1. Declaring an Array
+
+To declare an array in shell scripting, you can use the following syntax:
+
+```sh
+# Method 1: Declare and initialize an array
+array_name=(value1 value2 value3)
+
+# Method 2: Declare and initialize elements individually
+array_name[0]=value1
+array_name[1]=value2
+array_name[2]=value3
+```
+
+### 2. Accessing Array Elements
+
+To access the elements of an array, use the index enclosed in curly braces `{}`:
+
+```sh
+# Accessing array elements
+echo "${array_name[0]}"  # Prints value1
+echo "${array_name[1]}"  # Prints value2
+echo "${array_name[2]}"  # Prints value3
+```
+
+### 3. Array Operations
+
+#### Adding Elements
+
+You can add elements to an array by assigning values to new indices:
+
+```sh
+array_name[3]=value4
+```
+
+#### Iterating Over an Array
+
+To iterate over all elements in an array, you can use a loop:
+
+```sh
+# Iterate over array elements
+for element in "${array_name[@]}"; do
+    echo "$element"
+done
+```
+
+#### Array Length
+
+To get the number of elements in an array, use `${#array_name[@]}`:
+
+```sh
+# Print array length
+echo "Array length: ${#array_name[@]}"
+```
+
+### Example Shell Script with Arrays
+
+Here's an example script (`array_example.sh`) demonstrating arrays in shell scripting:
+
+```sh
+#!/bin/bash
+
+# Declare and initialize an array
+fruits=(apple banana cherry)
+
+# Access elements of the array
+echo "First fruit: ${fruits[0]}"   # Prints apple
+echo "Second fruit: ${fruits[1]}"  # Prints banana
+echo "Third fruit: ${fruits[2]}"   # Prints cherry
+
+# Add a new element to the array
+fruits[3]=date
+
+# Print all elements using a loop
+echo "All fruits:"
+for fruit in "${fruits[@]}"; do
+    echo "$fruit"
+done
+
+# Print array length
+echo "Number of fruits: ${#fruits[@]}"
+```
+
+### Notes:
+
+- **Indexed from Zero**: Array indices start from 0.
+- **Sparse Arrays**: Shell scripting arrays are sparse, meaning you can have gaps between indices.
+- **Quoting**: Always enclose array variables in double quotes (`"${array_name[@]}"`) to preserve individual elements with spaces.
+
+### Summary
+
+Arrays in shell scripting provide a way to store and manipulate multiple values under a single variable name. They are useful for handling lists of items, iterating over data, and managing structured data within shell scripts. Understanding how to declare, access, and manipulate arrays is essential for writing efficient and organized shell scripts.
