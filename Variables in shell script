@@ -1,0 +1,142 @@
+Variables in shell scripting are used to store data values that can be referenced and manipulated throughout the script. Here's an overview of how variables work in shell scripts:
+
+### 1. Variable Naming and Assignment
+
+- **Naming Convention**: 
+  - Variable names are typically uppercase by convention, but this is not mandatory.
+  - They can include letters, digits, and underscores (`_`), but the first character must be a letter (A-Z or a-z).
+
+- **Assignment**: 
+  - Variables are assigned values using the syntax `variable_name=value`.
+  - No spaces are allowed around the `=` sign.
+  
+Example:
+```sh
+NAME="Alice"
+AGE=30
+```
+
+### 2. Variable Types
+
+- **String Variables**: 
+  - Shell variables are generally treated as strings.
+  - They can hold any alphanumeric characters and special characters.
+
+Example:
+```sh
+GREETING="Hello, World!"
+```
+
+- **Numeric Variables**: 
+  - Shell scripts treat all variables as strings by default.
+  - Arithmetic operations require special handling or the use of a language that supports them.
+
+Example:
+```sh
+NUM1=10
+NUM2=5
+```
+
+### 3. Accessing Variables
+
+- **Accessing Variables**:
+  - Use `$` followed by the variable name to access its value.
+  
+Example:
+```sh
+echo "Name: $NAME"
+echo "Age: $AGE"
+```
+
+### 4. Quoting Variables
+
+- **Quoting**: 
+  - Use double quotes (`"`) to preserve spaces and interpret special characters literally.
+  - Use single quotes (`'`) to interpret everything literally.
+  
+Example:
+```sh
+MESSAGE="Hello, $NAME!"
+echo "$MESSAGE"
+```
+
+### 5. Variable Scope
+
+- **Scope**: 
+  - Variables in shell scripts are global by default.
+  - They can be made local using `local` keyword within functions.
+
+Example:
+```sh
+#!/bin/bash
+
+# Global variable
+NAME="Alice"
+
+# Function definition
+function my_function {
+    local AGE=30  # Local variable
+    echo "Inside function: Name is $NAME, Age is $AGE"
+}
+
+# Call the function
+my_function
+
+echo "Outside function: Name is $NAME"
+# echo "Outside function: Age is $AGE"  # This will cause an error since $AGE is not defined outside the function
+```
+
+### 6. Unset and Readonly Variables
+
+- **Unset Variables**:
+  - Use `unset` to unset (delete) a variable.
+  
+Example:
+```sh
+unset NAME
+```
+
+- **Readonly Variables**:
+  - Use `readonly` to make a variable read-only, preventing its value from being changed or unset.
+
+Example:
+```sh
+readonly AGE=30
+# AGE=35  # This will cause an error
+```
+
+### 7. Special Variables
+
+- **Special Variables**:
+  - `$0`, `$1`, `$2`, ...: Represent positional parameters passed to the script or function.
+  - `$#`: Number of positional parameters.
+  - `$@` and `$*`: All positional parameters as separate words (`$@`) or as a single word (`$*`).
+  - `$?`: Exit status of the last command.
+  - `$$`: Process ID (PID) of the current script.
+  - `$!`: PID of the last background command.
+
+### Example Shell Script with Variables
+
+Here's an example shell script (`example.sh`) demonstrating variables:
+
+```sh
+#!/bin/bash
+
+# Define variables
+NAME="Alice"
+AGE=30
+
+# Print variables
+echo "Name: $NAME"
+echo "Age: $AGE"
+
+# Use arithmetic with variables
+NUM1=10
+NUM2=5
+SUM=$((NUM1 + NUM2))
+echo "Sum of $NUM1 and $NUM2 is: $SUM"
+```
+
+### Summary
+
+Variables in shell scripting provide a way to store and manipulate data within scripts. Understanding how to declare, assign, and use variables is fundamental to writing effective shell scripts for tasks ranging from simple automation to complex system administration.
